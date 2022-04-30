@@ -17,7 +17,8 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
-    "outDir": "./build"
+    "declarationDir": "./types",
+    "outDir": "./dist"
   },
-  "exclude": ["./build"]
+  "exclude": ["./dist"]
 }
