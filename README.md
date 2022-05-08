@@ -1,3 +1,3 @@
 ## Paystack Wrapper Package
 
-Coming Soon
+This package wraps around the already existing paystack APIs giving you a robust typescript experience
