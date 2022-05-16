@@ -31,7 +31,7 @@ export default class PayStack {
     this.transaction = new Transactions(key);
   }
 
-  static webHook = <R extends Req, U extends Res, N extends any>(secret: string) => (req: R, res: U, next?: N) => {
+  static webHook = <R extends Req, U extends Res, N extends (...args: any[]) => any>(secret: string) => (req: R, res: U, next?: N) => {
     try {
       const hash = crypto
         .createHmac('sha512', secret) //
@@ -39,7 +39,7 @@ export default class PayStack {
         .digest('hex');
 
       if (hash === req.headers['x-paystack-signature']) {
-        res.sendStatus(200);
+        next && next();
         return;
       } else {
         res.sendStatus(401);

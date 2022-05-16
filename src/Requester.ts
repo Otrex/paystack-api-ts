@@ -42,7 +42,7 @@ export default class Requester {
 
       return camelcaseKeys(result.data, { deep: true });
     } catch (err: any) {
-      if (err.response) return Promise.reject(new ServiceError(err.response.message));
+      if (err.response) return Promise.reject(new ServiceError(err.response.data));
       return Promise.reject(err);
     }
   }
