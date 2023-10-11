@@ -1,4 +1,4 @@
-import Requester from './Requester';
+import Requester from "./Requester";
 
 interface VerifyCard {
   bin: string;
@@ -27,7 +27,7 @@ type VerifyAccountNumberResponse = Partial<{
 }>;
 
 export default class Verify extends Requester {
-  path = '';
+  path = "";
 
   /**
    * This verifies if a card is valid using the first 6 digits of the card number
@@ -37,7 +37,7 @@ export default class Verify extends Requester {
     const url = `/decision/bin/${data.bin}`;
 
     const result = await this.makeRequest({
-      method: 'GET',
+      method: "GET",
       data,
       url,
     });
@@ -54,7 +54,7 @@ export default class Verify extends Requester {
     const url = `/bank/resolve?account_number=${data.accountNumber}&bank_code=${data.bankCode}`;
 
     const result = await this.makeRequest({
-      method: 'GET',
+      method: "GET",
       data,
       url,
     });

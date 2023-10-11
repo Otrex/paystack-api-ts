@@ -1,17 +1,18 @@
-import Requester from "./Requester";
+import Api from "../core/api";
 import {
   ChargeCreationData,
   SubmitBirthdayData,
   SubmitOtpData,
   SubmitPhoneData,
   SubmitPinData,
-} from "./types";
+} from "../types";
 
-export default class Charge extends Requester {
-  path = "/charge";
+export default class Charge {
+  private basePath = "/charge";
+  constructor(private api: Api) {}
 
   /**
-   * This submits pin after the charge has been created succesfully
+   * This submits pin after the charge has been created successfully
    * The input data would be in an object
    *
    * @param email string
@@ -24,58 +25,52 @@ export default class Charge extends Requester {
   async create(data: ChargeCreationData) {
     const url =
       "authorizationCode" in data
-        ? `/transaction${this.path}_authorization`
-        : this.path;
+        ? `/transaction${this.basePath}_authorization`
+        : this.basePath;
 
-    const result = await this.makeRequest({
+    return this.api.request({
       method: "post",
       data,
       url,
     });
-
-    return this.resolveResponse(result);
   }
 
   /**
-   * This submits pin after the charge has been created succesfully.
+   * This submits pin after the charge has been created successfully.
    * The input data would be in an object
    *
    * @param pin string
    * @param reference string
    */
   async submitPin(data: SubmitPinData) {
-    const url = `${this.path}/submit_pin`;
+    const url = `${this.basePath}/submit_pin`;
 
-    const result = await this.makeRequest({
+    return this.api.request({
       method: "POST",
       data,
       url,
     });
-
-    return this.resolveResponse(result);
   }
 
   /**
-   * This submits pin after the charge has been created succesfully.
+   * This submits pin after the charge has been created successfully.
    * The input data would be in an object
    *
    * @param phone string
    * @param reference string
    */
   async submitPhone(data: SubmitPhoneData) {
-    const url = `${this.path}/submit_phone`;
+    const url = `${this.basePath}/submit_phone`;
 
-    const result = await this.makeRequest({
+    return this.api.request({
       method: "POST",
       data,
       url,
     });
-
-    return this.resolveResponse(result);
   }
 
   /**
-   * This submits pin after the charge has been created succesfully.
+   * This submits pin after the charge has been created successfully.
    * The input data would be in an object
    *
    * @param birthday string
@@ -83,38 +78,29 @@ export default class Charge extends Requester {
    * @example { "birthday": "1961-09-21", "reference": "5bwib5v6anhe9xa" }
    */
   async submitBirthday(data: SubmitBirthdayData) {
-    const url = `${this.path}/submit_birthday`;
+    const url = `${this.basePath}/submit_birthday`;
 
-    const result = await this.makeRequest({
+    return this.api.request({
       method: "POST",
       data,
       url,
     });
-
-    return this.resolveResponse(result);
   }
 
   /**
-   * This submits pin after the charge has been created succesfully.
+   * This submits pin after the charge has been created successfully.
    * The input data would be in an object
    *
    * @param otp string
    * @param reference string
    */
   async submitOtp(data: SubmitOtpData) {
-    const url = `${this.path}/submit_otp`;
+    const url = `${this.basePath}/submit_otp`;
 
-    const result = await this.makeRequest({
+    return this.api.request({
       method: "POST",
       data,
       url,
     });
-
-    return this.resolveResponse(result);
   }
 }
-
-/**
- * Test Cards: https://paystack.com/docs/payments/test-payments
- * APIs: https://paystack.com/docs/api
- */

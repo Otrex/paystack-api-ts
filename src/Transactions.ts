@@ -1,4 +1,4 @@
-import Requester from './Requester';
+import Requester from "./Requester";
 
 export interface TransactionData {
   email: string;
@@ -26,7 +26,7 @@ type TransactionAuthCodeCharge = {
   amount: string;
   currency: string;
   transaction_date: Date;
-  status: 'success' | 'failed';
+  status: "success" | "failed";
   reference: string;
   [key: string]: any;
   authorization: {
@@ -73,7 +73,7 @@ export interface PaystackEvent {
 }
 
 export default class Transactions extends Requester {
-  path = '/transaction';
+  path = "/transaction";
 
   /**
    * This checks if the authorizationCode is a valid one or if it can be charged
@@ -88,7 +88,7 @@ export default class Transactions extends Requester {
     const url = `${this.path}/charge_authorization`;
 
     const result = await this.makeRequest({
-      method: 'POST',
+      method: "POST",
       data,
       url,
     });
@@ -109,7 +109,7 @@ export default class Transactions extends Requester {
     const url = `${this.path}/check_authorization`;
 
     const result = await this.makeRequest({
-      method: 'POST',
+      method: "POST",
       data,
       url,
     });
@@ -130,7 +130,7 @@ export default class Transactions extends Requester {
     const url = `${this.path}/initialize`;
 
     const result = await this.makeRequest({
-      method: 'POST',
+      method: "POST",
       data,
       url,
     });

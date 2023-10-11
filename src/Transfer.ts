@@ -1,10 +1,10 @@
 /* eslint-disable no-underscore-dangle */
-import Requester from './Requester';
-import TransferReciepient from './TransferReciepent';
-import { IInitiateTransferResponse, InitiateTransferData } from './types';
+import Requester from "./Requester";
+import TransferReciepient from "./TransferReciepent";
+import { IInitiateTransferResponse, InitiateTransferData } from "./types";
 
 export default class Transfer extends Requester {
-  path = '/transfer';
+  path = "/transfer";
 
   private _reciepient: TransferReciepient;
 
@@ -30,7 +30,7 @@ export default class Transfer extends Requester {
     const url = `${this.path}`;
 
     const result = await this.makeRequest({
-      method: 'POST',
+      method: "POST",
       data,
       url,
     });

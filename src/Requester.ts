@@ -1,7 +1,7 @@
-import axios, { Method } from 'axios';
-import camelcaseKeys from 'camelcase-keys';
-import snakecaseKeys from 'snakecase-keys';
-import { ServiceError } from './errors';
+import axios, { Method } from "axios";
+import camelcaseKeys from "camelcase-keys";
+import snakecaseKeys from "snakecase-keys";
+import { ServiceError } from "./errors";
 
 const instance = axios.create();
 
@@ -17,13 +17,13 @@ export default class Requester {
 
   contentType = undefined;
 
-  baseUrl = 'api.paystack.co';
+  baseUrl = "api.paystack.co";
 
   constructor(private key?: string) {}
 
   // eslint-disable-next-line class-methods-use-this
   resolveResponse<T extends Record<string, any>>(result: PaystackResponse) {
-    if (!result.status) throw new Error('invalid response');
+    if (!result.status) throw new Error("invalid response");
     return { ...result.data, message: result.message } as T;
   }
 
@@ -35,14 +35,18 @@ export default class Requester {
         url: fullUrl,
         method,
         headers: {
-          'Content-Type': this.contentType !== undefined ? this.contentType : 'application/json',
+          "Content-Type":
+            this.contentType !== undefined
+              ? this.contentType
+              : "application/json",
           ...(this.key ? { Authorization: `Bearer ${this.key}` } : {}),
         } as any,
       });
 
       return camelcaseKeys(result.data, { deep: true });
     } catch (err: any) {
-      if (err.response) return Promise.reject(new ServiceError(err.response.data));
+      if (err.response)
+        return Promise.reject(new ServiceError(err.response.data));
       return Promise.reject(err);
     }
   }

@@ -1,8 +1,8 @@
-import Requester from './Requester';
-import { IReciepientResponse, TransferReciepientData } from './types';
+import Requester from "./Requester";
+import { IReciepientResponse, TransferReciepientData } from "./types";
 
 export default class TransferReciepient extends Requester {
-  path = '/transferreciepient';
+  path = "/transferreciepient";
 
   /**
    * This submits pin after the charge has been created succesfully
@@ -25,7 +25,7 @@ export default class TransferReciepient extends Requester {
     const url = `${this.path}`;
 
     const result = await this.makeRequest({
-      method: 'POST',
+      method: "POST",
       data,
       url,
     });

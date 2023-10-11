@@ -1,51 +1,29 @@
-import crypto from 'crypto';
-import Transfer from './Transfer';
-import Charge from './Charge';
-import Transactions from './Transactions';
-import Verify from './Verify';
+import Charge from "./services/Charge";
+import Api from "./core/api";
+import Webhook from "./services/Webhook";
+import Transaction from "./services/Transaction";
 
+/**
+ * Represents a Charge object for handling payment transactions.
+ *
+ * This class provides methods for creating and interacting with payment charges,
+ * including submitting various types of data (e.g., PIN, phone, birthday, OTP) after
+ * a charge has been successfully created.
+ */
+class PayStack {
+  static webhook = Webhook;
+  private api: Api;
 
-export interface Req {
-  headers: Record<string, any>,
-  body: any,
-  [key: string]: any
-}
-
-export interface Res {
-  sendStatus: (code: number|string) => any
-  [key: string]: any
-}
-export default class PayStack {
-  charge: Charge;
-
-  transfer: Transfer;
-
-  transaction: Transactions;
-
-  verify: Verify;
-
+  public charge: Charge;
+  public transactions: Transaction;
+  
   constructor(key: string) {
-    this.charge = new Charge(key);
-    this.verify = new Verify(key);
-    this.transfer = new Transfer(key);
-    this.transaction = new Transactions(key);
+    this.api = new Api(key);
+
+    this.charge = new Charge(this.api);
+    this.transactions = new Transaction(this.api)
   }
-
-  static webHook = <R extends Req, U extends Res, N extends (...args: any[]) => any>(secret: string) => (req: R, res: U, next?: N) => {
-    try {
-      const hash = crypto
-        .createHmac('sha512', secret) //
-        .update(JSON.stringify(req.body))
-        .digest('hex');
-
-      if (hash === req.headers['x-paystack-signature']) {
-        next && next();
-        return;
-      } else {
-        res.sendStatus(401);
-      }
-    } catch (err) {
-      res.sendStatus(400);
-    }
-  };
 }
+
+export default PayStack;
+exports.PayStack = PayStack;
