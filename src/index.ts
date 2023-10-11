@@ -1,5 +1,6 @@
-import Charge from "./services/Charge";
 import Api from "./core/api";
+
+import Charge from "./services/Charge";
 import Webhook from "./services/Webhook";
 import Transaction from "./services/Transaction";
 
@@ -11,15 +12,16 @@ import Transaction from "./services/Transaction";
  * a charge has been successfully created.
  */
 class PayStack {
-  static webhook = Webhook;
   private api: Api;
-
-  public charge: Charge;
-  public transactions: Transaction;
   
+  public charge: Charge;
+  public webhook: Webhook;
+  public transactions: Transaction;
+
   constructor(key: string) {
     this.api = new Api(key);
 
+    this.webhook = new Webhook(key);
     this.charge = new Charge(this.api);
     this.transactions = new Transaction(this.api)
   }

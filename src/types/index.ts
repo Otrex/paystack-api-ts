@@ -102,3 +102,14 @@ export interface TransactionInitResponse {
   metadata?: Record<string, any>;
 }
 
+export interface Req {
+  headers: Record<string, any>;
+  body: any;
+  [key: string]: any;
+}
+
+export interface Res {
+  sendStatus: (code: number | string) => any;
+  [key: string]: any;
+}
+
